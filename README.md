@@ -5,7 +5,7 @@ Use to generate coordinates that can be colored by B-factor in PyMol to display 
 
 Handles 1 or 3-letter AA code, does simple error checking. 
 
-Input 1 - white space seperated amino acid / property pairs
+Input 1 - white space separated amino acid / property pairs
 
 Input 2 - pdb file to modify 
 
