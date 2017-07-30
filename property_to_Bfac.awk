@@ -5,7 +5,7 @@
 # 
 # Based on write_beta_pdb.awk Author: Guillaume Bouvier -- guillaume.bouvier@pasteur.fr
 # https://bougui505.github.io/2015/11/26/write_data_to_b-factor_column_of_a_pdb_file.html
-# dmf 7.29.17 ok, FILEDWIDTHS does not appear to be implemented here... so, not really 
+# dmf 7.29.17 ok, FIELDWIDTHS does not appear to be implemented here... so, not really
 # based on this code, other than for its simplicity
 # 
 # input 1: file with amino acid names (three letter code) and property value
