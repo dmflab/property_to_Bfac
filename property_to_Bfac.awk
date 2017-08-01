@@ -16,9 +16,9 @@
 #
 
 function smartmatch(diamond, rough,   x, y) {
-for (x in rough) y[rough[x]]
-return diamond in y
 # see: https://stackoverflow.com/questions/26746361/check-if-array-contains-value
+    for (x in rough) y[rough[x]]
+    return diamond in y
 }
 
 BEGIN{ PropertyValue[""]=0; # associative table of property values
