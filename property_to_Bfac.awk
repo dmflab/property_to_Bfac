@@ -15,6 +15,12 @@
 #
 #
 
+function smartmatch(diamond, rough,   x, y) {
+for (x in rough) y[rough[x]]
+return diamond in y
+# see: https://stackoverflow.com/questions/26746361/check-if-array-contains-value
+}
+
 BEGIN{ PropertyValue[""]=0; # associative table of property values
         # amino acid lookup table -
         aa3["A"]="ALA";
@@ -38,31 +44,43 @@ BEGIN{ PropertyValue[""]=0; # associative table of property values
         aa3["V"]="VAL";
         # create a header with the creation date
         "date '+%d/%b/%Y'" | getline date ;
-        printf("REMARK\nREMARK File created: %s using property_to_Bfac.awk\n", date)
+        printf("REMARK\nREMARK File created: %s using property_to_Bfac.awk\n", date);
+        # flag to handle input header line
+        entry=1
       }
 
 {
     if (NR == FNR){ 	# i.e. process the first (table) file 
 	# create associative array from input file amino acid / property value pairs
 
-        # add header lines identifying the table file and what has been done
-        if (NR == 1) { # first line of first input file...
-            printf("REMARK Source properties file is: %s\n",FILENAME)
-        }
-
         # force uppercase
         aa = toupper($1)
         # and convert single letter to three letter code
         if (length(aa) == 1) aa = aa3[aa]
 
-        # check range of property value
-        if ($2 < -99.00 || $2 > 999.00) {
-            printf("\n Stop. Property value out of range (limit -99.00 to 999.00): %s %s\n\n", aa, $2)
-            exit
+        # add output header lines identifying the table file and what has been done
+        if (NR == 1) { # first line of first input file...
+            printf("REMARK Source properties file is: %s\n",FILENAME)
+
+            # test for input header line (i.e. not an amino acid code)
+            if (!smartmatch(aa, aa3)) {
+                printf("REMARK     -> %s\n",$0)
+                entry = 0
+            }
         }
 
-        # assign value indexed by amino acid name
-        PropertyValue[aa] = $2;
+        if (entry) {
+            # check range of property value
+            if ($2 < -99.00 || $2 > 999.00) {
+                printf("\n Stop. Property value out of range (limit -99.00 to 999.00): %s %s\n\n", aa, $2)
+                exit
+            }
+
+            # assign value indexed by amino acid name
+            PropertyValue[aa] = $2;
+        } else {
+            entry = 1
+        }
     }
     else{ 		# i.e. process the second (pdb) file 
 

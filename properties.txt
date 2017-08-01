@@ -1,3 +1,4 @@
+Hydrophobicity (Radzicka 1988, Biochemistry) kcal/mol
 ALA	1.81
 ARG	-14.92
 ASP	-8.72
