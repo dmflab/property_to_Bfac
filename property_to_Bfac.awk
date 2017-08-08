@@ -13,7 +13,7 @@
 # •Usage:
 #    ./property_to_Bfac.awk values_table.txt input.pdb > output.pdb
 #
-#
+# https://dmflab@github.com/dmflab/property_to_Bfac.git
 
 function smartmatch(diamond, rough,   x, y) {
 # see: https://stackoverflow.com/questions/26746361/check-if-array-contains-value
